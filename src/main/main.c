@@ -5,7 +5,7 @@ int main()
 {
     char mass[9][9];
     int MoveNumber = 1;
-    int flag = 1;
+    int j = 1;
     CreateBoard(mass);
     PrintBoard(mass);
     while (flag == 1) {
