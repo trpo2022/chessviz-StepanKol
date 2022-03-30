@@ -8,7 +8,7 @@ int main()
     int j = 1;
     CreateBoard(mass);
     PrintBoard(mass);
-    while (flag == 1) {
+    while (j == 1) {
         printf("%d. ", MoveNumber);
         WhiteTurn(mass);
         BlackTurn(mass);
