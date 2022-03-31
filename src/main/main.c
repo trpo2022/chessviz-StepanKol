@@ -9,11 +9,11 @@ int main()
     CreateBoard(mass);
     PrintBoard(mass);
     while (j == 1) {
-        printf("%d. ", MoveNumber);
+        printf("%d.", MoveNumber);
         WhiteTurn(mass);
+        PrintBoard(mass);
         BlackTurn(mass);
         PrintBoard(mass);
         MoveNumber += 1;
     }
-    return 0;
 }

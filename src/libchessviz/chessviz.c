@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 void CreateBoard(char mass[9][9])
 {
     for (int i = 0; i < 8; i++)
@@ -49,6 +48,7 @@ void CreateBoard(char mass[9][9])
 
 void PrintBoard(char mass[9][9])
 {
+    printf("\n");
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++)
             printf("%c ", mass[i][j]);
@@ -85,6 +85,7 @@ int BlackPawnMove(int* step_integer, char mass[9][9])
     } else
         return 1;
 }
+
 int WhitePawnMove(int* step_integer, char mass[9][9])
 {
     if ((step_integer[1] == 6) && (step_integer[4] == step_integer[1] - 2)
@@ -141,8 +142,8 @@ int WhiteKingMove(int* step_integer, char mass[9][9])
         } else
             return 1;
     } else
-
- }
+        return 1;
+}
 
 int BlackKingMove(int* step_integer, char mass[9][9])
 {
@@ -175,7 +176,6 @@ int BlackKingMove(int* step_integer, char mass[9][9])
         return 1;
 }
 
-int WhiteRookMove(int* step_integer, char mass[9][9]) {
 int WhiteRookMove(int* step_integer, char mass[9][9])
 {
     int j = 0, r = 0;
@@ -211,7 +211,6 @@ int WhiteRookMove(int* step_integer, char mass[9][9])
                 j = 1;
         }
     }
-
     if ((j == 0) && (r == 1)
         && (((mass[step_integer[4]][step_integer[3]] > 'a')
              && (mass[step_integer[4]][step_integer[3]] < 'z'))
@@ -255,7 +254,6 @@ int BlackRookMove(int* step_integer, char mass[9][9])
                 j = 1;
         }
     }
-
     if ((j == 0)
         && (((mass[step_integer[4]][step_integer[3]] > 'A')
              && (mass[step_integer[4]][step_integer[3]] < 'Z'))
@@ -362,7 +360,7 @@ int BlackBishopMove(int* step_integer, char mass[9][9])
         return 1;
 }
 
-void WhiteQueenMove(int* step_integer, char mass[9][9]) 
+void WhiteQueenMove(int* step_integer, char mass[9][9])
 {
     WhiteBishopMove(step_integer, mass);
     WhiteRookMove(step_integer, mass);
@@ -373,7 +371,6 @@ void BlackQueenMove(int* step_integer, char mass[9][9])
     BlackBishopMove(step_integer, mass);
     BlackRookMove(step_integer, mass);
 }
-
 
 int WhiteHorseMove(int* step_integer, char mass[9][9])
 {
@@ -507,6 +504,16 @@ int BlackHorseMove(int* step_integer, char mass[9][9])
         return 1;
 }
 
+int InputValidation(char* step)
+{
+    while ((step[0] < 'a') || (step[0] > 'h') || (step[2] != '-')
+           || (step[4] == '0')) {
+        printf("this move doesn't work, make another move\n");
+        scanf("%s", step);
+    }
+    return 0;
+}
+
 void WhiteTurn(char mass[9][9])
 {
     char step[6];
@@ -514,11 +521,7 @@ void WhiteTurn(char mass[9][9])
     scanf("%s", step);
     while (flag == 1) {
         flag = 0;
-        while ((step[0] < 'a') || (step[0] > 'h') || (step[2] != '-')
-               || (step[4] == '0')) {
-            printf("this move doesn't work, make another move\n");
-            scanf("%s", step);
-        }
+        InputValidation(step);
         step[0] = step[0] - 96;
         step[1] = abs(step[1] - 56);
         step[3] = step[3] - 96;
@@ -578,12 +581,7 @@ void BlackTurn(char mass[9][9])
     scanf("%s", step);
     while (flag == 1) {
         flag = 0;
-        while ((step[0] < 'a') || (step[0] > 'h') || (step[2] != '-')
-               || (step[4] == '0')) {
-            printf("this move doesn't work, make another move\n");
-            scanf("%s", step);
-            printf("%d", step[0]);
-        }
+        InputValidation(step);
         step[0] = step[0] - 96;
         step[1] = abs(step[1] - 56);
         step[3] = step[3] - 96;
